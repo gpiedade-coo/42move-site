@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "42Move - DOaaS"
+version = "1.0.0"
+id = "artifacts/42move"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22420
+
+[services.development]
+run = "pnpm --filter @workspace/42move run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/42move", "run", "build" ]
+publicDir = "artifacts/42move/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22420"
+BASE_PATH = "/"
