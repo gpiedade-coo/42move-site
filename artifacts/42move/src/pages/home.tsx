@@ -82,7 +82,9 @@ const initGoogleTags = () => {
   const tagId = googleAnalyticsId ?? googleAdsId;
   if (!tagId) return;
   window.dataLayer = window.dataLayer ?? [];
-  window.gtag = (...args: unknown[]) => window.dataLayer?.push(args);
+  window.gtag = function gtag(...args: unknown[]) {
+    window.dataLayer?.push(arguments);
+  };
   const script = document.createElement("script");
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(tagId)}`;
